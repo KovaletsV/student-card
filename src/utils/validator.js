@@ -9,11 +9,11 @@ export function validator(data, config) {
 
       case "isValidYear":
         const currentYear = new Date().getFullYear();
-        statusValidate = currentYear < data || data < 1900;
+        statusValidate = currentYear < data;
         break;
       case "isPortfolioLink":
         const portfolioRegExp =
-          /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
+          /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!])*)?/;
         if (!portfolioRegExp.test(data)) return config.message;
         break;
       default:

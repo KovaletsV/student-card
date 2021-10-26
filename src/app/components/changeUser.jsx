@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import TextField from "./textField";
-import { validator } from "../utils/validator";
+import { validator } from "../../utils/validator";
+import { useHistory } from "react-router-dom";
 
 const CreateUser = () => {
   const [data, setData] = useState({
@@ -10,6 +11,20 @@ const CreateUser = () => {
     portfolio: "",
   });
   const [errors, setErrors] = useState({});
+  const [modal, setModal] = useState(false);
+
+  const history = useHistory();
+
+  const addData = () => {
+    console.log(data);
+    localStorage.setItem("data", JSON.stringify(data));
+    setModal(true);
+  };
+
+  const HideModal = () => {
+    history.push("/");
+    setModal(false);
+  };
 
   useEffect(() => {
     validate();
@@ -20,12 +35,14 @@ const CreateUser = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+  const isValid = Object.keys(errors).length === 0;
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
     console.log(data);
   };
+
   const validatorConfig = {
     firstName: {
       isRequired: {
@@ -92,10 +109,37 @@ const CreateUser = () => {
               onChange={handleChange}
               error={errors.portfolio}
             />
-            <button className="btn btn-primary mx-auto mb-4">Создать</button>
+            <button
+              type={"submit"}
+              disabled={!isValid}
+              className={"btn btn-primary"}
+              onClick={addData}
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+            >
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
+      {modal === true ? (
+        <div className="container mt-5">
+          <div className="row">
+            <div className="col-md-6 offset-md-3 shadow p-4">
+              <h6 className={"mb-4"}>Обновлено</h6>
+              <button
+                type={"button"}
+                className={"btn btn-light"}
+                onClick={HideModal}
+              >
+                Скрыть
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
