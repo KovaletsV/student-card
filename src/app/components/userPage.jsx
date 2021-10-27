@@ -9,8 +9,20 @@ const UserPage = () => {
   const handleToChangeUser = () => {
     history.push("/changeUser");
   };
+  //Рендерим строку вывода возраста
+  const renderPhrase = (age) => {
+    const lastOne = Number(age.toString().slice(-1));
+    if (age > 4 && age < 21) return "лет";
+    if ([2, 3, 4].indexOf(lastOne) >= 0) return "года";
+    if (lastOne === 1) return "год";
+  };
+
+  //Получаем данные из localStorage
   const userRaw = localStorage.getItem("data");
   const user = JSON.parse(userRaw);
+  //Получаем текущий возраст
+  const currentAge = new Date().getFullYear() - user.dateOfBirth;
+
   if (user) {
     return (
       <div className={"container center-block"}>
@@ -25,9 +37,7 @@ const UserPage = () => {
         </div>
         <div>
           Год рождения:
-          {`${user.dateOfBirth} (${
-            new Date().getFullYear() - user.dateOfBirth
-          } лет)`}
+          {`${user.dateOfBirth},  ${currentAge} ${renderPhrase(currentAge)}`}
         </div>
         <div>
           Портфолио:

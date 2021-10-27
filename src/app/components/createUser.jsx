@@ -4,15 +4,6 @@ import { validator } from "../../utils/validator";
 import { useHistory } from "react-router-dom";
 
 const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
-  // const [data, setData] = useState({
-  //   firstName: "",
-  //   surname: "",
-  //   dateOfBirth: "",
-  //   portfolio: "",
-  // });
-  // const [errors, setErrors] = useState({});
-  // const [modal, setModal] = useState(false);
-
   const history = useHistory();
   const handleUserPage = () => {
     history.push("/userPage");
@@ -27,17 +18,22 @@ const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
     validate();
   }, [data]);
 
+  //Создаем метод валидации
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+  //Создаем метод для отправки формы по нажатию кнопки
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
     console.log(data);
   };
+
+  //Конфигурацию для отображения ошибок
   const validatorConfig = {
     firstName: {
       isRequired: {
@@ -54,6 +50,7 @@ const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
         message: "Дата рождения обязательно для заполнения",
       },
       isValidYear: {
+        number: true,
         message: "Введите корректный год рождения",
       },
     },
@@ -66,6 +63,8 @@ const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
       },
     },
   };
+
+  //
   const handleChange = ({ target }) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
@@ -92,6 +91,7 @@ const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
             />
             <TextField
               label="Дата рождения"
+              type="number"
               name="dateOfBirth"
               value={data.dateOfBirth}
               onChange={handleChange}
