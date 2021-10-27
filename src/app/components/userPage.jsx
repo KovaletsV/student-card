@@ -20,10 +20,10 @@ const UserPage = () => {
   //Получаем данные из localStorage
   const userRaw = localStorage.getItem("data");
   const user = JSON.parse(userRaw);
-  //Получаем текущий возраст
-  const currentAge = new Date().getFullYear() - user.dateOfBirth;
 
   if (user) {
+    //Получаем текущий возраст
+    const currentAge = new Date().getFullYear() - user.dateOfBirth;
     return (
       <div className={"container center-block"}>
         <h1>Карточка студента</h1>

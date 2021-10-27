@@ -8,7 +8,7 @@ import { Route, Switch } from "react-router-dom";
 function App() {
   const [data, setData] = useState({
     firstName: "",
-    lastName: "",
+    surname: "",
     dateOfBirth: "",
     portfolio: "",
   });
