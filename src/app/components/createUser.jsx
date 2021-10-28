@@ -5,8 +5,9 @@ import { useHistory } from "react-router-dom";
 
 const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
   const history = useHistory();
-  const handleUserPage = () => {
-    history.push("/userPage");
+  const addData = () => {
+    localStorage.setItem("data", JSON.stringify(data));
+    setModal(true);
   };
 
   const HideModal = () => {
@@ -104,10 +105,7 @@ const CreateUser = ({ data, setData, errors, setErrors, modal, setModal }) => {
               onChange={handleChange}
               error={errors.portfolio}
             />
-            <button
-              className="btn btn-primary mx-auto mb-4"
-              onClick={handleUserPage}
-            >
+            <button className="btn btn-primary mx-auto mb-4" onClick={addData}>
               Создать
             </button>
           </form>

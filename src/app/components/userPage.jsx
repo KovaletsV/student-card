@@ -24,6 +24,7 @@ const UserPage = () => {
   if (user) {
     //Получаем текущий возраст
     const currentAge = new Date().getFullYear() - user.dateOfBirth;
+    console.log(currentAge);
     return (
       <div className={"container center-block"}>
         <h1>Карточка студента</h1>
